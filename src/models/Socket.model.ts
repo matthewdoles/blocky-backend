@@ -1,9 +1,14 @@
-export interface ServerToClientEvents {
-  noArg: () => void;
-  basicEmit: (a: number, b: string, c: Buffer) => void;
-  withAck: (d: string, callback: (e: number) => void) => void;
+import { ILobby } from './Lobby.model';
+import { IUser } from './User.model';
+
+export interface IServerToClientEvents {
+  userLeft: () => void;
+  updateLobby: (lobby: ILobby) => void;
 }
 
-export interface ClientToServerEvents {
-  hello: () => void;
+export interface IClientToServerEvents {
+  joinLobby: (
+    user: IUser,
+    callback: (data: { error: string; user: IUser }) => void
+  ) => void;
 }

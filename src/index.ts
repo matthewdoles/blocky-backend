@@ -1,22 +1,32 @@
 import { createServer } from 'http';
 import { Server, Socket } from 'socket.io';
+
+import { joinLobby } from './lobby/joinLobby';
+import { ILobby } from './models/Lobby.model';
 import {
-  ClientToServerEvents,
-  ServerToClientEvents,
+  IClientToServerEvents,
+  IServerToClientEvents,
 } from './models/Socket.model';
+import { disconnect } from './standard/disconnect';
 
 const httpServer = createServer();
-const io = new Server<ClientToServerEvents, ServerToClientEvents>(httpServer, {
-  cors: {
-    origin:
-      process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000',
-  },
-});
+const io = new Server<IClientToServerEvents, IServerToClientEvents>(
+  httpServer,
+  {
+    cors: {
+      origin:
+        process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000',
+    },
+  }
+);
 
-export const lobbies = [];
+export const lobbies: ILobby[] = [];
 
 io.on('connection', (socket: Socket) => {
-  console.log('connected');
+  console.log('connected: ' + io.engine.clientsCount);
+
+  disconnect(io, socket);
+  joinLobby(io, socket);
 });
 
 const port = process.env.PORT || 8080;

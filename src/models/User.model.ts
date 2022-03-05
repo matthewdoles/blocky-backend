@@ -1,6 +1,8 @@
+import { IGameState } from './GameState.model';
+
 export interface IUser {
   id: string;
-  points?: number;
   profileImage?: string;
   username: string;
+  gameState: IGameState;
 }

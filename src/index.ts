@@ -1,5 +1,6 @@
 import { createServer } from 'http';
 import { Server, Socket } from 'socket.io';
+import { updateUserGameState } from './game/updateUserGameState';
 
 import { joinLobby } from './lobby/joinLobby';
 import { ILobby } from './models/Lobby.model';
@@ -27,6 +28,7 @@ io.on('connection', (socket: Socket) => {
 
   disconnect(io, socket);
   joinLobby(io, socket);
+  updateUserGameState(io, socket);
 });
 
 const port = process.env.PORT || 8080;

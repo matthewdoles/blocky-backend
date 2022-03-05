@@ -15,7 +15,9 @@ export const disconnect = (
       const userIndex = lobby.users.findIndex((u) => u.id === socket.id);
       if (userIndex !== -1) {
         lobbies[i].users.splice(userIndex, 1);
-        io.to(lobbies[i].users[0].id).emit('userLeft');
+        if (lobbies[i].users.length > 0) {
+          io.to(lobbies[i].users[0].id).emit('userLeft');
+        }
         lobbies.splice(i, 1);
       }
     });

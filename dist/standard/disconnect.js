@@ -9,7 +9,9 @@ const disconnect = (io, socket) => {
             const userIndex = lobby.users.findIndex((u) => u.id === socket.id);
             if (userIndex !== -1) {
                 index_js_1.lobbies[i].users.splice(userIndex, 1);
-                io.to(index_js_1.lobbies[i].users[0].id).emit('userLeft');
+                if (index_js_1.lobbies[i].users.length > 0) {
+                    io.to(index_js_1.lobbies[i].users[0].id).emit('userLeft');
+                }
                 index_js_1.lobbies.splice(i, 1);
             }
         });

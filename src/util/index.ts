@@ -3,7 +3,7 @@ import { ILobby } from '../models/Lobby.model';
 import { IUser } from '../models/User.model';
 
 export const createLobby = (user: IUser) => {
-  const lobbyId = generateLobbyNumber(6);
+  const lobbyId = generateLobbyId(6);
   const lobbyIndex = lobbies.findIndex(
     (lobby: ILobby) => lobby.lobbyId === lobbyId
   );
@@ -19,7 +19,7 @@ export const createLobby = (user: IUser) => {
   return lobby;
 };
 
-export const generateLobbyNumber = (length: number) => {
+export const generateLobbyId = (length: number) => {
   let result = '';
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   const charactersLength = characters.length;

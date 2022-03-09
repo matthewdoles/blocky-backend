@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateLobbyNumber = exports.createLobby = void 0;
+exports.generateLobbyId = exports.createLobby = void 0;
 const __1 = require("..");
 const createLobby = (user) => {
-    const lobbyId = (0, exports.generateLobbyNumber)(6);
+    const lobbyId = (0, exports.generateLobbyId)(6);
     const lobbyIndex = __1.lobbies.findIndex((lobby) => lobby.lobbyId === lobbyId);
     if (lobbyIndex != -1) {
         (0, exports.createLobby)(user);
@@ -16,7 +16,7 @@ const createLobby = (user) => {
     return lobby;
 };
 exports.createLobby = createLobby;
-const generateLobbyNumber = (length) => {
+const generateLobbyId = (length) => {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     const charactersLength = characters.length;
@@ -25,4 +25,4 @@ const generateLobbyNumber = (length) => {
     }
     return result;
 };
-exports.generateLobbyNumber = generateLobbyNumber;
+exports.generateLobbyId = generateLobbyId;

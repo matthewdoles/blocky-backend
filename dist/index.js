@@ -3,14 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.lobbies = void 0;
 const http_1 = require("http");
 const socket_io_1 = require("socket.io");
-const updateGameOver_1 = require("./game/updateGameOver");
-const updateUserGameState_1 = require("./game/updateUserGameState");
 const disconnect_1 = require("./standard/disconnect");
 const joinLobby_1 = require("./lobby/joinLobby");
+const updateGameOver_1 = require("./game/updateGameOver");
+const updateUserGameState_1 = require("./game/updateUserGameState");
 const httpServer = (0, http_1.createServer)();
 const io = new socket_io_1.Server(httpServer, {
     cors: {
-        origin: process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000',
+        origin: process.env.NODE_ENV === 'production'
+            ? 'https://blocky-beige.vercel.app'
+            : 'http://localhost:3000',
     },
 });
 exports.lobbies = [];

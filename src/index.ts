@@ -1,14 +1,15 @@
 import { createServer } from 'http';
 import { Server, Socket } from 'socket.io';
-import { updateUserGameState } from './game/updateUserGameState';
 
+import { disconnect } from './standard/disconnect';
 import { joinLobby } from './lobby/joinLobby';
+import { updateGameOver } from './game/updateGameOver';
+import { updateUserGameState } from './game/updateUserGameState';
 import { ILobby } from './models/Lobby.model';
 import {
   IClientToServerEvents,
   IServerToClientEvents,
 } from './models/Socket.model';
-import { disconnect } from './standard/disconnect';
 
 const httpServer = createServer();
 const io = new Server<IClientToServerEvents, IServerToClientEvents>(
@@ -24,10 +25,9 @@ const io = new Server<IClientToServerEvents, IServerToClientEvents>(
 export const lobbies: ILobby[] = [];
 
 io.on('connection', (socket: Socket) => {
-  console.log('connected: ' + io.engine.clientsCount);
-
   disconnect(io, socket);
   joinLobby(io, socket);
+  updateGameOver(io, socket);
   updateUserGameState(io, socket);
 });
 

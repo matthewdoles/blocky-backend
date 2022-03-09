@@ -16,14 +16,19 @@ export const joinLobby = (
     ({ id, gameState, profileImage, username }, callback) => {
       // Check valid username
       if (!username) {
-        return callback({ error: 'Username required!' });
+        return callback('Username required!');
       }
 
       // Check for empty lobby
       const lobbyIndex = lobbies.findIndex((l) => l.users.length === 1);
 
       // Construct User
-      const user: IUser = { id: socket.id, username, gameState, profileImage };
+      const user: IUser = {
+        id: socket.id,
+        username,
+        gameState,
+        profileImage,
+      };
 
       let lobby;
       if (lobbyIndex === -1) {

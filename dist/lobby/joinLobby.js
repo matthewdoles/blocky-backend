@@ -7,12 +7,17 @@ const joinLobby = (io, socket) => {
     socket.on('joinLobby', ({ id, gameState, profileImage, username }, callback) => {
         // Check valid username
         if (!username) {
-            return callback({ error: 'Username required!' });
+            return callback('Username required!');
         }
         // Check for empty lobby
         const lobbyIndex = index_js_1.lobbies.findIndex((l) => l.users.length === 1);
         // Construct User
-        const user = { id: socket.id, username, gameState, profileImage };
+        const user = {
+            id: socket.id,
+            username,
+            gameState,
+            profileImage,
+        };
         let lobby;
         if (lobbyIndex === -1) {
             lobby = (0, index_js_2.createLobby)(user);
